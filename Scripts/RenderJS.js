@@ -13,16 +13,16 @@
         $(surname).text(item.Surname);
         $(surname).attr("class", "tds");
         var salary = document.createElement("td");
-        $(salary).text(item.Salary);
+        $(salary).text(FormatNum(item.Salary));
         $(salary).attr("class", "tds");
         var tax1 = document.createElement("td");
-        $(tax1).text(item.IncomeTax);
+        $(tax1).text(FormatNum(item.IncomeTax));
         $(tax1).attr("class", "tds");
         var tax2 = document.createElement("td");
-        $(tax2).text(item.NationalInsurance);
+        $(tax2).text(FormatNum(item.NationalInsurance));
         $(tax2).attr("class", "tds");
         var tax3 = document.createElement("td");
-        $(tax3).text(item.HomeTake);
+        $(tax3).text(FormatNum(item.HomeTake));
         $(tax3).attr("class", "tds");
         var view = document.createElement("td");
         $(view).text("View");
@@ -85,4 +85,12 @@ function CollorMatching()
             $(names[i]).html(newValue);
         }
     }
+}
+
+function FormatNum(num)
+{
+    var p = num.toFixed(2).split(".");
+    return  p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+        return num + (i && !(i % 3) ? "," : "") + acc;
+    }, "") + "." + p[1];
 }
