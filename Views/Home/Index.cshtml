@@ -1,0 +1,42 @@
+﻿<div id="body">
+<span>Search By Name:</span><input id="name" type="text" name="searchByName" placeholder="Search By Name..."/>
+<span>Search By Surname:</span><input id="surname" type="text" name="searchBySurName" placeholder="Search By Sursnme..." />
+<table id="employees">
+    <tr>
+        <th class="ths">Title</th>
+        <th class="ths">Name</th>
+        <th class="ths">Surname</th>
+        <th class="ths">Salary</th>
+        <th class="ths">Income Tax</th>
+        <th class="ths">National Insurance</th>
+        <th class="ths">Home Take</th>
+        <th colspan="2" class="ths">Actions</th>
+    </tr>
+</table>
+</div>
+@section scripts{
+    <script type="text/javascript">
+       $(document).ready(function ()
+        {
+            $.getJSON('/api/employee', function (contactsJsonPayload)
+            {
+                Render(contactsJsonPayload);
+            });
+            $("#name").keyup(function ()
+            {
+                var value = $(this).val();
+                var textField = $(this).attr("name");
+                console.log(textField);
+                var url = '/api/employee?name=' + value + '&textField=' + textField;
+                QueryTheApi(url);
+            });
+            $("#surname").keyup(function () {
+                var value = $(this).val();
+                var textField = $(this).attr("name");
+                console.log(textField);
+                var url = '/api/employee?name=' + value + '&textField=' + textField;
+                QueryTheApi(url);
+            });
+       });
+</script>
+}
