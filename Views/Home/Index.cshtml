@@ -1,6 +1,6 @@
 ﻿<div id="body">
-<span>Search By Name:</span><input id="name" type="text" name="searchByName" placeholder="Search By Name..."/>
-<span>Search By Surname:</span><input id="surname" type="text" name="searchBySurName" placeholder="Search By Sursnme..." />
+<span class="text">Search By Name:</span><input id="name" type="text" name="searchByName" placeholder="Search By Name..."/>
+<span class="text">Search By Surname:</span><input id="surname" type="text" name="searchBySurName" placeholder="Search By Sursnme..." />
 <table id="employees">
     <tr>
         <th class="ths">Title</th>
@@ -26,14 +26,13 @@
             {
                 var value = $(this).val();
                 var textField = $(this).attr("name");
-                console.log(textField);
                 var url = '/api/employee?name=' + value + '&textField=' + textField;
                 QueryTheApi(url);
+                
             });
             $("#surname").keyup(function () {
                 var value = $(this).val();
                 var textField = $(this).attr("name");
-                console.log(textField);
                 var url = '/api/employee?name=' + value + '&textField=' + textField;
                 QueryTheApi(url);
             });

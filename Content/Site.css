@@ -27,12 +27,16 @@ h2 {
    padding:50px;
    background-color: #fbe4b9;
 }
-span {
+.text {
    font-size:16px;
    margin:10px 10px;
    padding:2px; 
    background-color: #fbe4b9;
    color: #0089a8;
+}
+.replacer{
+   color: #ff6a00;
+   text-decoration:underline;
 }
 input {
    font-size:14px;
@@ -47,30 +51,29 @@ input {
         width:80%;
         height:100%;  
         margin:20px 50px;  
-    }
-   
-    .ths, .tds 
-    {
-        text-align:center;
-        vertical-align:middle;
-        border: 1px groove #333;
-        padding:10px;
+ }
 
-    }
+ .ths, .tds 
+ {
+     text-align:center;
+     vertical-align:middle;
+     border: 1px groove #333;
+     padding:10px;
 
-   .ths {
-           font-size:18px;
-           background-color: #ee6a07;
-           color: #efeeef;    
-   }
-   tr:nth-child(2n+1) td{
-           font-size:16px;
-           background-color: #fbf3de;
-           color: #0089a8;    
-   }
-   tr:nth-child(2n) td{
-           font-size:16px;
-           background-color: #efeeef;
-           color: #0089a8;    
-   }
-  
+ }
+
+.ths {
+        font-size:18px;
+        background-color: #ee6a07;
+        color: #efeeef;    
+}
+tr:nth-child(2n+1) td{
+        font-size:16px;
+        background-color: #fbf3de;
+        color: #0089a8;    
+}
+tr:nth-child(2n) td{
+        font-size:16px;
+        background-color: #efeeef;
+        color: #0089a8;    
+}

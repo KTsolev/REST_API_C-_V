@@ -1,5 +1,7 @@
-﻿function Render(contactsJsonPayload) {
-    $(contactsJsonPayload).each(function (i, item) {
+﻿function Render(contactsJsonPayload)
+{
+    $(contactsJsonPayload).each(function (i, item)
+    {
         var tr = document.createElement("tr");
         var title = document.createElement("td");
         $(title).text(item.Title);
@@ -39,13 +41,48 @@
         $(tr).append(tdelete);
         $("#employees").append(tr);
     });
+    CollorMatching();
 }
 
 function QueryTheApi(url)
 {
-    $.getJSON(url, function (results) {
+    $.getJSON(url, function (results)
+    {
         $("#employees tr").slice(1).remove();
-        console.log(results);
         Render(results);
     });
+}
+
+function CollorMatching()
+{
+    var id = 0;
+    var name = $("#name").attr('name');
+    var surname = $("#surname").attr('name');
+    var text = "";
+    if (name == "searchByName" && $("#name").val() != "")
+    {
+        id = 2;
+        text = $("#name").val().toLowerCase();
+    }
+    if (surname == "searchBySurName" && $("#surname").val() != "")
+    {
+        id = 3;
+        text = $("#surname").val().toLowerCase();
+    }
+    if (text !== "")
+    {
+        var names = $("#employees tr td:nth-child(" + id + ")");
+        var value = "";
+        var newValue = "";
+        var replaceValue = "";
+        var values = [];
+        for (var i = 0; i < names.length; i++)
+        {
+            value = $(names[i]).text().toLowerCase();
+            replaceValue = "<span class='replacer'>" + text + "</span>";
+            newValue = value.replace(text, replaceValue);
+            //newValue = newValue.replace(newValue[0], newValue[0].toUpperCase());
+            $(names[i]).html(newValue);
+        }
+    }
 }
