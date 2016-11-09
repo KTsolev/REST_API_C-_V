@@ -3,6 +3,7 @@
 <span class="text">Search By Surname:</span><input id="surname" type="text" name="searchBySurName" placeholder="Search By Sursnme..." />
 <table id="employees">
     <tr>
+        <th class="ths">ID</th>
         <th class="ths">Title</th>
         <th class="ths">Name</th>
         <th class="ths">Surname</th>
@@ -10,14 +11,16 @@
         <th class="ths">Income Tax</th>
         <th class="ths">National Insurance</th>
         <th class="ths">Home Take</th>
-        <th colspan="2" class="ths">Actions</th>
+        <th class="ths">Actions</th>
     </tr>
 </table>
+    <div id="detailView"></div>
 </div>
 @section scripts{
     <script type="text/javascript">
        $(document).ready(function ()
-        {
+       {
+           $("#detailView").empty();    
             $.getJSON('/api/employee', function (contactsJsonPayload)
             {
                 Render(contactsJsonPayload);

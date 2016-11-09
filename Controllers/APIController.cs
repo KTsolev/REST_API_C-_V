@@ -15,16 +15,14 @@ namespace MvcRestApi.Controllers
 {
     public class EmployeeController : ApiController
     {
-        private EmployeesRepository employeeRepo;
+        private EmployeesRepository employeeRepo = new EmployeesRepository();
 
         public List<EmployeeModel> Get() 
         {
-            employeeRepo = new EmployeesRepository();
             return employeeRepo.GetAllEmployees();
         }
         public List<EmployeeModel> Get(string name,string textfield) 
         {
-            employeeRepo = new EmployeesRepository();
             List<EmployeeModel> list = new List<EmployeeModel>();
             if (textfield.ToLower().Equals("searchByName".ToLower())) 
             {
@@ -38,5 +36,16 @@ namespace MvcRestApi.Controllers
             return list;
         }
 
+        public EmployeeModel GetEmployeeByID(int id) 
+        {
+            var employee = employeeRepo.GetEmployeesById(id);
+            return employee;
+        }
+
+        //public List<EmployeeModel> DeleteEmployee(int id)
+        //{
+        //    employeeRepo.DeleteEmployee(id);
+        //    return employeeRepo.GetAllEmployees();
+        //}
     }
 }

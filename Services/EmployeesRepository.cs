@@ -46,5 +46,14 @@ namespace MvcRestApi.Services
                 return items.FindAll(e => e.Surname.ToLower().Equals(Name.ToLower()) || e.Surname.ToLower().Contains(Name.ToLower()));
             }
         }
+        public EmployeeModel GetEmployeesById(int id)
+        {
+            return items.FirstOrDefault(e => e.ID == id);
+        }
+        public void DeleteEmployee(int id)
+        {
+            EmployeeModel employee = GetEmployeesById(id);
+            items.Remove(employee);
+        }
     }
 }

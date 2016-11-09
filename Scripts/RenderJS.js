@@ -3,6 +3,9 @@
     $(contactsJsonPayload).each(function (i, item)
     {
         var tr = document.createElement("tr");
+        var id = document.createElement("td");
+        $(id).text(item.ID);
+        $(id).attr("class", "tds");
         var title = document.createElement("td");
         $(title).text(item.Title);
         $(title).attr("class", "tds");
@@ -25,11 +28,17 @@
         $(tax3).text(FormatNum(item.HomeTake));
         $(tax3).attr("class", "tds");
         var view = document.createElement("td");
-        $(view).text("View");
+        $(view).text("Detail View");
         $(view).attr("class", "tds");
-        var tdelete = document.createElement("td");
-        $(tdelete).attr("class", "tds");
-        $(tdelete).text("Delete");
+        $(view).on('click', function () {
+            var top = $(this).position().top;
+            console.log(top);
+            var id = $(this).parent().children().first().text();
+            var url = '/api/employee?id=' + id;
+            QueryOne(url);
+            $("#detailView").scrollTop(top);
+        });
+        $(tr).append(id);
         $(tr).append(title);
         $(tr).append(name);
         $(tr).append(surname);
@@ -38,12 +47,51 @@
         $(tr).append(tax2);
         $(tr).append(tax3);
         $(tr).append(view);
-        $(tr).append(tdelete);
         $("#employees").append(tr);
     });
     CollorMatching();
 }
+function RenderOne(result)
+{
+    var title = document.createElement('h3');
+    $(title).text("Title: " + result.Title);
+    var name = document.createElement('h3');
+    $(name).text("Name: " + result.Name);
+    var surname = document.createElement('h3');
+    $(surname).text("Surname: " + result.Surname);
+    var gender = document.createElement('h3');
+    $(gender).text("Gender: " + result.Gender);
+    var date = document.createElement('h3');
+    $(date).text("Date Of Birth: " + result.DateOfBirth);
+    var age = document.createElement('h3');
+    $(age).text("Age: " + result.Age);
+    var parent = $("#detailView");
+    var pic = document.createElement('img');
+    $(pic).attr('id', 'icon');
+    var cancel = document.createElement('img');
+    $(cancel).attr('id', 'cancel');
+    $(cancel).attr('alt', 'cancel-icon');
+    $(cancel).attr('src', '../Content/cancel.png');
 
+    if(result.Gender === "female")
+    {
+        $(pic).attr('alt', 'female-icon');
+        $(pic).attr('src', '../Content/female1.jpg');
+    }
+    else
+    {
+        $(pic).attr('alt', 'male-icon');
+        $(pic).attr('src', '../Content/male1.jpg');
+    }
+    
+    $(parent).append(pic);
+    $(parent).append(title);
+    $(parent).append(name);
+    $(parent).append(surname);
+    $(parent).append(gender);
+    $(parent).append(date);
+    $(parent).append(age);
+}
 function QueryTheApi(url)
 {
     $.getJSON(url, function (results)
@@ -52,6 +100,16 @@ function QueryTheApi(url)
         Render(results);
     });
 }
+//Needed to separate functions cause there was mixture between which function when to be called//
+function QueryOne(url)
+{
+    $.getJSON(url, function (results)
+    {
+        $("#detailView").empty();
+        RenderOne(results);
+    });
+}
+
 
 function CollorMatching()
 {
@@ -61,12 +119,12 @@ function CollorMatching()
     var text = "";
     if (name == "searchByName" && $("#name").val() != "")
     {
-        id = 2;
+        id = 3;
         text = $("#name").val().toLowerCase();
     }
     if (surname == "searchBySurName" && $("#surname").val() != "")
     {
-        id = 3;
+        id = 4;
         text = $("#surname").val().toLowerCase();
     }
     if (text !== "")
@@ -81,7 +139,6 @@ function CollorMatching()
             value = $(names[i]).text().toLowerCase();
             replaceValue = "<span class='replacer'>" + text + "</span>";
             newValue = value.replace(text, replaceValue);
-            //newValue = newValue.replace(newValue[0], newValue[0].toUpperCase());
             $(names[i]).html(newValue);
         }
     }
@@ -90,7 +147,8 @@ function CollorMatching()
 function FormatNum(num)
 {
     var p = num.toFixed(2).split(".");
-    return  p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+    return p[0].split("").reverse().reduce(function (acc, num, i, orig)
+    {
         return num + (i && !(i % 3) ? "," : "") + acc;
     }, "") + "." + p[1];
 }
