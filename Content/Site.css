@@ -29,7 +29,6 @@ h2 {
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  border: 1px solid #ddd;
    padding:50px;
    background-color: #fbe4b9;
 }
