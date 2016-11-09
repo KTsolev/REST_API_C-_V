@@ -31,12 +31,11 @@
         $(view).text("Detail View");
         $(view).attr("class", "tds");
         $(view).on('click', function () {
-            var top = $(this).position().top;
-            console.log(top);
+            var position = $(this).position();
+            $("#detailView").css({ "z-index": 5, 'right': 60, top: position.top});
             var id = $(this).parent().children().first().text();
             var url = '/api/employee?id=' + id;
             QueryOne(url);
-            $("#detailView").scrollTop(top);
         });
         $(tr).append(id);
         $(tr).append(title);
@@ -72,7 +71,11 @@ function RenderOne(result)
     $(cancel).attr('id', 'cancel');
     $(cancel).attr('alt', 'cancel-icon');
     $(cancel).attr('src', '../Content/cancel.png');
-
+    $(cancel).on('click', function () {
+        var position = $(this).position();
+        $(parent).css({ "border": "0px groove #0089a8", "z-index": -1 });
+        $("#detailView").empty();
+    });
     if(result.Gender === "female")
     {
         $(pic).attr('alt', 'female-icon');
@@ -83,7 +86,8 @@ function RenderOne(result)
         $(pic).attr('alt', 'male-icon');
         $(pic).attr('src', '../Content/male1.jpg');
     }
-    
+    $(parent).css({ "border": "1px groove #0089a8" });
+    $(parent).append(cancel);
     $(parent).append(pic);
     $(parent).append(title);
     $(parent).append(name);

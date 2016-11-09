@@ -1,6 +1,7 @@
 ﻿<div id="body">
 <span class="text">Search By Name:</span><input id="name" type="text" name="searchByName" placeholder="Search By Name..."/>
 <span class="text">Search By Surname:</span><input id="surname" type="text" name="searchBySurName" placeholder="Search By Sursnme..." />
+<div id="detailView"></div>
 <table id="employees">
     <tr>
         <th class="ths">ID</th>
@@ -14,13 +15,11 @@
         <th class="ths">Actions</th>
     </tr>
 </table>
-    <div id="detailView"></div>
 </div>
 @section scripts{
     <script type="text/javascript">
        $(document).ready(function ()
-       {
-           $("#detailView").empty();    
+       {           
             $.getJSON('/api/employee', function (contactsJsonPayload)
             {
                 Render(contactsJsonPayload);
